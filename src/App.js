@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from "axios";
 
 function App() {
+  const [message, setMessage] = useState("something")
   const requestAPI = ({ url, ...params }) => {
     return axios
       .request({
@@ -21,13 +22,15 @@ function App() {
       method: "get",
       url: "http://localhost:3001",
     });
-
-    console.log(response);
+    response.then((data) => {
+      console.log(data);
+      setMessage(data.message)
+    })
   };
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Hello</h1>
+        <h1>Hello {message}</h1>
         <button onClick={fetchAPI}>FetchAPI</button>
       </header>
     </div>
