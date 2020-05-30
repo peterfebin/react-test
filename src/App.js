@@ -20,7 +20,7 @@ function App() {
   const fetchAPI = async () => {
     const response = requestAPI({
       method: "get",
-      url: "http://localhost:3001",
+      url: "http://159.89.162.18:8000/api/v1/water_meters",
     });
     response.then((data) => {
       console.log(data);
