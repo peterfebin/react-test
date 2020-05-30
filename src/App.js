@@ -1,23 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import axios from "axios";
 
 function App() {
+  const requestAPI = ({ url, ...params }) => {
+    return axios
+      .request({
+        url: `${url}`,
+        ...params,
+      })
+      .then((response) => {
+        if (response.status !== 200) console.log("Request Failed", response);
+        return response;
+      })
+      .then((response) => response.data)
+      .catch((e) => console.log(e));
+  };
+
+  const fetchAPI = async () => {
+    const response = requestAPI({
+      method: "get",
+      url: "http://localhost:3001",
+    });
+
+    console.log(response);
+  };
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Hello</h1>
+        <button onClick={fetchAPI}>FetchAPI</button>
       </header>
     </div>
   );
